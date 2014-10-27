@@ -8,10 +8,18 @@
       .when('/', {
         templateUrl: '/views/home/home.html',
         controller: 'HomeController'
-      })
-      .otherwise({
+      }).when('/sign_in', {
+        templateUrl: '/views/auth/sign_in.html',
+        controller: 'SignInController'
+      }).otherwise({
         redirectTo: '/'
       });
+  });
+
+  hex.config(function ($authProvider) {
+    $authProvider.configure({
+      apiUrl: 'http://localhost:3000'
+    });
   });
 
   hex.controller('ApplicationController', ['$scope', function ($scope) {
