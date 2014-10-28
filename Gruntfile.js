@@ -6,12 +6,13 @@ module.exports = function (grunt) {
     distdir: 'public',
     src: {
       app: 'client',
-      fonts: ['assets/fonts'],
+      assets: 'assets',
+      fonts: ['<%= src.assets %>/fonts'],
+      icon: 'favicon.ico',
       js: ['<%= src.app %>/**/*.js'],
       index: ['<%= src.app %>/index.html'],
       html: ['<%= src.app %>/**/*.html'],
-      css: ['<%= src.app %>/assets/css/bootstrap.min.css', '<%= src.app %>/assets/css/style.css'],
-      config: ['config/config.js']
+      css: ['<%= src.app %>/assets/css/bootstrap.min.css', '<%= src.app %>/assets/css/style.css']
     },
     concat: {
       options: {
@@ -77,12 +78,13 @@ module.exports = function (grunt) {
         flatten: true,
         filter: 'isFile'
       },
-      config: {
-        src: '<%= src.config %>',
-        dest: '<%= distdir %>/js/',
+      favicon: {
+        cwd: '<%= src.app %>/<%= src.assets %>',
+        src: '<%= src.icon %>',
+        dest: '<%= distdir %>',
         flatten: true,
-        filter: 'isFile',
-        expand: true
+        expand: true,
+        filter: 'isFile'
       }
     },
     watch: {

@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.1.6'
 
 gem 'rails-api'
@@ -18,6 +17,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'factory_girl'
+  gem 'faker'
 end
 
 # To use ActiveModel has_secure_password
