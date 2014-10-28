@@ -55,7 +55,7 @@ RSpec.configure do |config|
   end
 
   config.before(:all, type: :feature) do
-    system("grunt build-dev")
+    system("grunt build")
   end
 
   config.before(:each) do

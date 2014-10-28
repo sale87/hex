@@ -3,7 +3,7 @@
 
   var hex = angular.module('hex', ['ui.bootstrap', 'ngRoute', 'LocalStorageModule', 'ng-token-auth']);
 
-  hex.config(function ($routeProvider) {
+  hex.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: '/views/home/home.html',
@@ -14,7 +14,7 @@
       }).otherwise({
         redirectTo: '/'
       });
-  });
+  }]);
 
   hex.run(['$rootScope', '$location', function ($rootScope, $location) {
     $rootScope.$on('auth:login-success', function () {
