@@ -3,14 +3,14 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    distdir: 'dist',
+    distdir: 'public',
     src: {
-      app: 'src',
+      app: 'client',
       fonts: ['assets/fonts'],
-      js: ['src/**/*.js'],
-      index: ['src/index.html'],
-      html: ['src/**/*.html'],
-      css: ['src/assets/css/bootstrap.min.css', 'src/assets/css/style.css'],
+      js: ['<%= src.app %>/**/*.js'],
+      index: ['<%= src.app %>/index.html'],
+      html: ['<%= src.app %>/**/*.html'],
+      css: ['<%= src.app %>/assets/css/bootstrap.min.css', '<%= src.app %>/assets/css/style.css'],
       config: ['config/config.js']
     },
     concat: {

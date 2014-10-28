@@ -14,3 +14,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore public folder since it will be rebuild on every deploy
+/public/*
+
+# Ignore frontend specific folders
+node_modules
+bower_components

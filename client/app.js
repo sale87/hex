@@ -16,12 +16,6 @@
       });
   });
 
-  hex.config(function ($authProvider) {
-    $authProvider.configure({
-      apiUrl: 'http://localhost:3000'
-    });
-  });
-
   hex.controller('ApplicationController', ['$scope', function ($scope) {
     $scope.message = 'Hello World!';
   }]);
