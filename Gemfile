@@ -14,6 +14,10 @@ gem 'omniauth', '>= 1.0.0'
 
 group :test do
   gem 'rspec-rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
+  gem 'factory_girl'
 end
 
 # To use ActiveModel has_secure_password

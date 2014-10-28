@@ -95,4 +95,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['clean', 'concat', 'bower_concat', 'uglify', 'cssmin', 'copy']);
   grunt.registerTask('build-dev', ['clean', 'concat', 'bower_concat', 'cssmin', 'copy']);
+  grunt.registerTask('build', ['default']);
 };
