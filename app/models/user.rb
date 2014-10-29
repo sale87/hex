@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
-  validates_format_of :email, :with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
+  validates           :name, presence: true
+  validates           :email, uniqueness: { message: 'is already in use' }
+  validates           :email, format: { with: /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/ }
 
   before_save do
     self.uid = SecureRandom.uuid

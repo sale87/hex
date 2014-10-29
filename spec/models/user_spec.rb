@@ -21,4 +21,13 @@ describe User do
     @user.email = 'a'
     expect(@user).not_to be_valid
   end
+
+  it "has to have name" do
+    @user.name = ''
+    expect(@user).not_to be_valid
+
+    @user.name = 'a'
+    expect(@user).to be_valid
+  end
+
 end
