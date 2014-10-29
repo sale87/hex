@@ -13,4 +13,12 @@ describe User do
   it "doesn't send a confirmation email" do
     expect { @user.save! }.not_to change { ActionMailer::Base.deliveries.count }
   end
+
+  it "has to have valid email" do
+    @user.email = ''
+    expect(@user).not_to be_valid
+
+    @user.email = 'a'
+    expect(@user).not_to be_valid
+  end
 end
