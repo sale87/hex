@@ -89,7 +89,7 @@ module.exports = function (grunt) {
     },
     watch: {
       default: {
-        files: ['<%= src.js %>', '<%= src.index %>', '<%= src.html %>', '<%= src.config %>'],
+        files: ['<%= src.js %>', '<%= src.index %>', '<%= src.html %>'],
         tasks: ['build-dev']
       }
     }

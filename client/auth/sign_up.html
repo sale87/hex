@@ -1,0 +1,70 @@
+<div class="container">
+  <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel-title">Sign Up</div>
+      </div>
+
+      <div style="padding-top:30px" class="panel-body">
+
+        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+          <form id="loginform" class="form-horizontal" ng-submit="register()" role="form" ng-init="registrationForm = {}">
+
+          <div class="form-group">
+            <label for="email" class="col-md-3 control-label">Email</label>
+
+            <div class="col-md-9">
+              <input type="text" class="form-control" name="email" placeholder="Email Address" ng-model='registrationForm.email'>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nickname" class="col-md-3 control-label">Nickname</label>
+
+            <div class="col-md-9">
+              <input type="text" class="form-control" name="nickname" placeholder="Nickname" ng-model='registrationForm.nickname'>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fullname" class="col-md-3 control-label">Name</label>
+
+            <div class="col-md-9">
+              <input type="text" class="form-control" name="name" placeholder="Name" ng-model='registrationForm.name'>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="col-md-3 control-label">Password</label>
+
+            <div class="col-md-9">
+              <input type="password" class="form-control" name="password" placeholder="Password" ng-model='registrationForm.password'>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <!-- Button -->
+            <div class="col-md-offset-3 col-md-9">
+              <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up
+              </button>
+              <span style="margin-left:8px;"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 control">
+              <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                <a href="#/sign_in">
+                                    Sign In Here
+                                </a>
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>

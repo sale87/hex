@@ -11,6 +11,9 @@
       }).when('/sign_in', {
         templateUrl: '/views/auth/sign_in.html',
         controller: 'SignInController'
+      }).when('/sign_up', {
+        templateUrl: '/views/auth/sign_up.html',
+        controller: 'SignUpController'
       }).otherwise({
         redirectTo: '/'
       });

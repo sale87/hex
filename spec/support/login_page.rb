@@ -6,4 +6,8 @@ class LoginPage
     fill_in "password", with: password
     find("button", text: "Sign in").click
   end
+
+  def open
+    visit '#/sign_up'
+  end
 end
