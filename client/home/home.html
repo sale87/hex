@@ -1,5 +1,5 @@
 <li ng-show="!user.id"><a ng-href="#/sign_in">Sign in</a></li>
 <li ng-show="user.id"><a ng-click='signOut()'>Sign out</a></li>
 <div ng-show="user.id">
-  {{message}}
+  {{message}} {{user.nickname}} {{user.name}}
 </div>

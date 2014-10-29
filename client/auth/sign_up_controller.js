@@ -4,7 +4,13 @@
 
   hex.controller('SignUpController', ['$scope', '$auth', function ($scope, $auth) {
     $scope.register = function () {
-      $auth.submitRegistration($scope.registrationForm);
+      $auth.submitRegistration($scope.registrationForm)
+        .then(function () {
+          $auth.submitLogin({
+            email: $scope.registrationForm.email,
+            password: $scope.registrationForm.password
+          });
+        });
     };
   }]);
 }());
