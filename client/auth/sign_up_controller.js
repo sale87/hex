@@ -8,7 +8,8 @@
       _.each(reason.errors, function (errorList, field) {
         _.each(errorList, function (error) {
           if (error !== "This email address is already in use") {
-            $scope.errors.push(field.charAt(0).toUpperCase() + field.slice(1) + " " + error + ".");
+            $scope.errors.push(field.charAt(0).toUpperCase() + field.slice(1).replace('_', ' ') +
+              " " + error + ".");
           }
         });
       });

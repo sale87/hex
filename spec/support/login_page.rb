@@ -1,13 +1,13 @@
 class LoginPage
   include Capybara::DSL
 
+  def visit
+    Capybara::visit '#/sign_in'
+  end
+
   def sign_in(email, password)
     fill_in "email", with: email
     fill_in "password", with: password
-    find("button", text: "Sign in").click
-  end
-
-  def open
-    visit '#/sign_up'
+    click_on 'Sign in'
   end
 end

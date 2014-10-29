@@ -5,14 +5,13 @@ feature "Registration", js: true do
   let(:email) {Faker::Internet.email}
   let(:password) {Faker::Internet.password}
 
-  scenario "with valid inputs" do
-    visit "#/sign_up"
+  before do
+    @sign_up_page = SignUpPage.new
+    @sign_up_page.visit
+  end
 
-    fill_in "Email", with: email
-    fill_in "Name", with: name
-    fill_in "Password", with: password
-    fill_in "Password confirmation", with: password
-    click_on "Sign Up"
+  scenario "with valid inputs" do
+    @sign_up_page.sign_up(email: email, name: name, password: password, password_confirmation: password)
 
     expect(page).to have_content('Sign out')
     expect(page).to have_content('Welcome to Hex!')
@@ -20,31 +19,25 @@ feature "Registration", js: true do
   end
 
   scenario "with invalid email" do
-    visit "#/sign_up"
-
-    fill_in "Email", with: 'not-valid'
-    fill_in "Name", with: name
-    fill_in "Password", with: password
-    fill_in "Password confirmation", with: password
-    click_on "Sign Up"
+    @sign_up_page.sign_up(email: 'not-valid', name: name, password: password, password_confirmation: password)
 
     expect(page).to have_content('Sign Up')
     expect(page).to have_content('Email is invalid.')
   end
 
   scenario "with invalid password" do
-    visit "#/sign_up"
-
     password = 'a'
-    fill_in "Email", with: email
-    fill_in "Name", with: name
-    fill_in "Password", with: password
-    fill_in "Password confirmation", with: password
-    click_on "Sign Up"
+    @sign_up_page.sign_up(email: email, name: name, password: password, password_confirmation: password)
 
     expect(page).to have_content('Sign Up')
     expect(page).to have_content('Password is too short (minimum is 8 characters).')
   end
 
+  scenario "with password confirmation missmatch" do
+    @sign_up_page.sign_up(email: email, name: name, password: password, password_confirmation: 'password_mismatch')
+
+    expect(page).to have_content('Sign Up')
+    expect(page).to have_content('Password confirmation doesn\'t match Password.')
+  end
 
 end
