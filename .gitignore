@@ -21,3 +21,7 @@
 # Ignore frontend specific folders
 node_modules
 bower_components
+
+# Ignore ide files
+.idea
+hex.iml

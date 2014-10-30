@@ -10,14 +10,6 @@ class GamesController < ApplicationController
     respond_with(@game)
   end
 
-  def new
-    @game = Game.new
-    respond_with(@game)
-  end
-
-  def edit
-  end
-
   def create
     @game = Game.new(game_params)
     @game.save
