@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :accept, :destroy, :resign]
+  before_filter :authenticate_user!, except: [:index, :show]
 
   def index
     @games = Game.all
@@ -16,14 +17,22 @@ class GamesController < ApplicationController
     respond_with(@game)
   end
 
-  def update
-    @game.update(game_params)
-    respond_with(@game)
-  end
+  # def update
+  #   @game.update(game_params)
+  #   respond_with(@game)
+  # end
 
   def destroy
     @game.destroy
     respond_with(@game)
+  end
+
+  def accept
+
+  end
+
+  def resign
+
   end
 
   private
