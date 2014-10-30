@@ -13,6 +13,7 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
+    @game.creator_id = current_user.id
     @game.save
     respond_with(@game)
   end
@@ -41,6 +42,6 @@ class GamesController < ApplicationController
     end
 
     def game_params
-      params.require(:game).permit(:description, :creator_id, :black_id, :white_id, :accepted_at, :time_per_move, :winner, :resigned)
+      params.require(:game).permit(:description, :time_per_move)
     end
 end
