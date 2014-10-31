@@ -50,32 +50,75 @@ describe GamesController, :type => :controller do
 
   describe 'destroy' do
     before(:each) do
-      FactoryGirl.create(:game)
+      @game = FactoryGirl.create(:game)
     end
 
     it 'requires login' do
-      delete :destroy, id: 1
+      delete :destroy, id: @game.id
       expect(response.status).to eq(401)
     end
 
-    it 'fails to delete not accepted game' do
+    it 'fails to delete accepted game' do
       sign_in @user
       game = FactoryGirl.create(:accepted_game)
       delete :destroy, id: game.id, :format => :json
       expect(response.status).to eq(400)
+      expect(JSON.load(response.body)['message']).to eq('You cannot delete accepted game.')
     end
 
     it 'deletes only not accepted game' do
       sign_in @user
-      delete :destroy, id: 1, :format => :json
+      delete :destroy, id: @game.id, :format => :json
       expect(response.status).to eq(204)
     end
 
     it 'fails to delete other user game' do
       other_user = FactoryGirl.create(:confirmed_user)
       sign_in other_user
-      delete :destroy, id: 1, :format => :json
+      delete :destroy, id: @game.id, :format => :json
       expect(response.status).to eq(403)
     end
   end
+
+  describe 'accept' do
+    before(:each) do
+      @game = FactoryGirl.create(:game)
+      @other_user = FactoryGirl.create(:confirmed_user)
+    end
+
+    it 'requires login' do
+      post :accept, id: @game.id
+      expect(response.status).to eq(401)
+    end
+
+    it 'can\'t be accepted by user that created it' do
+      sign_in @user
+      post :accept, id: @game.id, :format => :json
+      expect(response.status).to eq(400)
+      expect(JSON.load(response.body)['message']).to eq('You cannot accept your own game.')
+    end
+
+    it 'accepts game' do
+      sign_in @other_user
+      post :accept, id: @game.id, :format => :json
+      expect(response.status).to eq(201)
+      body = JSON.load(response.body)
+      expect(body['id']).to eq(@game.id)
+      expect(body['accepted_at']).not_to be_nil
+      expect(body['white_id']).not_to be_nil
+      expect(body['black_id']).not_to be_nil
+      expect(body['black_id']).not_to eq(body['white_id'])
+    end
+
+    it 'cannot accept already accepted game' do
+      sign_in @other_user
+      post :accept, id: @game.id, :format => :json
+
+      sign_in @other_user
+      post :accept, id: @game.id, :format => :json
+      expect(response.status).to eq(400)
+      expect(JSON.load(response.body)['message']).to eq('Game already accepted.')
+    end
+  end
 end
+

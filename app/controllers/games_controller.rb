@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :accept, :destroy, :resign]
+  before_action :set_game, only: [:show, :accept, :destroy, :accept, :resign]
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
@@ -33,12 +33,25 @@ class GamesController < ApplicationController
       @game.destroy
       respond_with(@game)
     else
-      head :bad_request
+      render json: {message: 'You cannot delete accepted game.'}, status: :bad_request
     end
   end
 
   def accept
-
+    c_id = @game.creator_id
+    u_id = current_user.id
+    if c_id == u_id
+      render json: {message: 'You cannot accept your own game.'}, status: :bad_request
+    else
+      if @game.accepted_at.nil?
+        @game.accepted_at = Time.now
+        @game.white_id, @game.black_id = creator_black? ? [u_id, c_id] : [c_id, u_id]
+        @game.save
+        respond_with(@game)
+      else
+        render json: {message: 'Game already accepted.'}, status: :bad_request
+      end
+    end
   end
 
   def resign
@@ -46,11 +59,15 @@ class GamesController < ApplicationController
   end
 
   private
-    def set_game
-      @game = Game.find(params[:id])
-    end
+  def set_game
+    @game = Game.find(params[:id])
+  end
 
-    def game_params
-      params.require(:game).permit(:description, :time_per_move)
-    end
+  def game_params
+    params.require(:game).permit(:description, :time_per_move)
+  end
+
+  def creator_black?
+    rand * 10 >= 5
+  end
 end
