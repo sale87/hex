@@ -47,4 +47,35 @@ describe GamesController, :type => :controller do
       expect(body['creator_id']).to eq(1)
     end
   end
+
+  describe 'destroy' do
+    before(:each) do
+      FactoryGirl.create(:game)
+    end
+
+    it 'requires login' do
+      delete :destroy, id: 1
+      expect(response.status).to eq(401)
+    end
+
+    it 'fails to delete not accepted game' do
+      sign_in @user
+      game = FactoryGirl.create(:accepted_game)
+      delete :destroy, id: game.id, :format => :json
+      expect(response.status).to eq(400)
+    end
+
+    it 'deletes only not accepted game' do
+      sign_in @user
+      delete :destroy, id: 1, :format => :json
+      expect(response.status).to eq(204)
+    end
+
+    it 'fails to delete other user game' do
+      other_user = FactoryGirl.create(:confirmed_user)
+      sign_in other_user
+      delete :destroy, id: 1, :format => :json
+      expect(response.status).to eq(403)
+    end
+  end
 end

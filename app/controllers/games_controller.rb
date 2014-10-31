@@ -24,8 +24,17 @@ class GamesController < ApplicationController
   # end
 
   def destroy
-    @game.destroy
-    respond_with(@game)
+    if @game.creator_id != current_user.id
+      head :forbidden
+      return
+    end
+
+    if @game.accepted_at.nil?
+      @game.destroy
+      respond_with(@game)
+    else
+      head :bad_request
+    end
   end
 
   def accept
