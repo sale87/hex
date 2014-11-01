@@ -5,9 +5,9 @@ Aim of this project is creating place to play [Hex board game](http://en.wikiped
 
 # MVP
 
-- [ ] Initial project setup
-- [ ] Create account
-- [ ] Login
+- [ x ] Initial project setup
+- [ x ] Create account
+- [ x ] Login
 - [ ] Create game challenge
 - [ ] Accept challenge
 - [ ] Play move
