@@ -55,7 +55,22 @@ class GamesController < ApplicationController
   end
 
   def resign
+    if @game.resigned
+      render json: {message: 'Game already resigned.'}, status: :bad_request
+    elsif @game.black_id == current_user.id
+      winner_by_resignation(@game.white_id)
+    elsif @game.white_id == current_user.id
+      winner_by_resignation(@game.black_id)
+    else
+      render json: {message: 'Cannot resign other people games.'}, status: :forbidden
+    end
+  end
 
+  def winner_by_resignation(winner)
+    @game.winner = winner
+    @game.resigned = true
+    @game.save
+    respond_with(@game)
   end
 
   private

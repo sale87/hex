@@ -114,10 +114,47 @@ describe GamesController, :type => :controller do
       sign_in @other_user
       post :accept, id: @game.id, :format => :json
 
-      sign_in @other_user
       post :accept, id: @game.id, :format => :json
       expect(response.status).to eq(400)
       expect(JSON.load(response.body)['message']).to eq('Game already accepted.')
+    end
+  end
+
+  describe 'resign' do
+    before(:each) do
+      @game = FactoryGirl.create(:accepted_game)
+      @other_user = FactoryGirl.create(:confirmed_user)
+    end
+
+    it 'requires login' do
+      post :resign, id: @game.id
+      expect(response.status).to eq(401)
+    end
+
+    it 'can be resigned only by players playing the game' do
+      third_user = FactoryGirl.create(:confirmed_user)
+      sign_in third_user
+
+      post :resign, id: @game.id, :format => :json
+      expect(response.status).to eq(403)
+      expect(JSON.load(response.body)['message']).to eq('Cannot resign other people games.')
+    end
+
+    it 'resigns game and sets winner' do
+      sign_in @other_user
+      post :resign, id: @game.id, :format => :json
+      expect(response.status).to eq(201)
+      expect(JSON.load(response.body)['winner']).to eq(@user.id)
+      expect(JSON.load(response.body)['resigned']).to eq(true)
+    end
+
+    it 'cannot resign already resigned game' do
+      sign_in @other_user
+      post :resign, id: @game.id, :format => :json
+
+      post :resign, id: @game.id, :format => :json
+      expect(response.status).to eq(400)
+      expect(JSON.load(response.body)['message']).to eq('Game already resigned.')
     end
   end
 end
