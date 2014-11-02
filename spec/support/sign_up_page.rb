@@ -10,6 +10,6 @@ class SignUpPage
     fill_in 'Name', with: options[:name]
     fill_in 'Password', with: options[:password]
     fill_in 'Password confirmation', with: options[:password_confirmation]
-    click_on 'Sign Up'
+    click_button 'Sign Up'
   end
 end
