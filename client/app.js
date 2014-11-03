@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var hex = angular.module('hex', ['ui.bootstrap', 'ngRoute', 'LocalStorageModule', 'ng-token-auth']);
+    var hex = angular.module('hex', ['ui.bootstrap', 'ngRoute', 'LocalStorageModule', 'ng-token-auth', 'ngResource']);
 
     hex.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -23,6 +23,18 @@
             }).otherwise({
                 redirectTo: '/'
             });
+    }]);
+
+    hex.config(['$authProvider', function ($authProvider) {
+        $authProvider.configure({
+            tokenFormat: {
+                "access_token": "{{ token }}",
+                "token_type": "Bearer",
+                "client": "{{ clientId }}",
+                "expiry": "{{ expiry }}",
+                "uid": "{{ uid }}"
+            }
+        });
     }]);
 
     hex.run(['$rootScope', '$location', function ($rootScope, $location) {
