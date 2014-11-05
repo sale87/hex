@@ -79,7 +79,7 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:description, :time_per_move)
+    params.permit(:description, :time_per_move)
   end
 
   def creator_black?

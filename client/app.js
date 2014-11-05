@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var hex = angular.module('hex', ['ui.bootstrap', 'ngRoute', 'LocalStorageModule', 'ng-token-auth', 'ngResource']);
+    var hex = angular.module('hex', ['ui.bootstrap', 'ngRoute', 'LocalStorageModule', 'ngResource', 'ng-token-auth']);
 
     hex.config(['$routeProvider', function ($routeProvider) {
         $routeProvider

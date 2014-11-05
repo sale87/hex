@@ -1,10 +1,9 @@
-<form role="form" ng-submit="createGame()" class="form-horizontal">
+<form role="form" ng-submit="createGame()" class="form-horizontal" ng-init="createGameForm = {}">
     <div class="form-group">
         <label for="description" class="col-md-3 control-label">Description</label>
 
         <div class="col-md-9">
-            <input type="text" class="form-control" name="description" placeholder="Description" ng-m
-                   odel='createGameForm.description'>
+            <input type="text" class="form-control" name="description" placeholder="Description" ng-model='createGameForm.description'>
         </div>
     </div>
 
@@ -12,8 +11,7 @@
         <label for="timepermove" class="col-md-3 control-label">Time per move</label>
 
         <div class="col-md-9">
-            <input type="text" class="form-control" name="timepermove" placeholder="Time per move" ng-m
-                   odel='createGameForm.timePerMove'>
+            <input type="text" class="form-control" name="timepermove" placeholder="Time per move" ng-model='createGameForm.timePerMove'>
         </div>
     </div>
 

@@ -39,7 +39,7 @@ describe GamesController, :type => :controller do
 
     it 'creates game' do
       sign_in @user
-      post :create, game: {description: 'This is my game', time_per_move: 1}, :format => :json
+      post :create, {description: 'This is my game', time_per_move: 1}, :format => :json
       expect(response.status).to eq(201)
       body = JSON.load(response.body)
       expect(body['description']).to eq('This is my game')
