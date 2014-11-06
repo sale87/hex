@@ -18,6 +18,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl'
   gem 'faker'
+  gem 'capybara-angular'
 end
 
 # To use ActiveModel has_secure_password
